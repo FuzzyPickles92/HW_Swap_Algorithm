@@ -5,54 +5,60 @@
 //
 
 #include <iostream>
-#include <string>
 
 using namespace std;
 
-// Function/Method Declaration - START
-void bubbleSort(int arr[], int arrSize);
-// define function/method declaration signatures between the two markers
-// Function/Method Declaration - END
+// Variables
+int temp;
+int numComparisons = 0;
+int numSwaps = 0;
+
+// Function Prototypes
+void bubbleSort(int arr[], int size);
 
 int main() {
-    // get user input for array elements
     int arrSize;
-    cout << "Enter the number of elements in the array: ";
+    cout << "Enter the number of elements you want to sort: ";
     cin >> arrSize;
 
     int* arr = new int[arrSize];
+    cout << "Enter the elements:" << endl;
     for (int i = 0; i < arrSize; i++) {
-        cout << "Enter element " << i + 1 << ": ";
         cin >> arr[i];
     }
 
-    // sort the array numerically using bubble sort
     bubbleSort(arr, arrSize);
 
-    // print the sorted array
-    cout << "Sorted Array: ";
+    cout << "Sorted elements: ";
     for (int i = 0; i < arrSize; i++) {
         cout << arr[i] << " ";
     }
     cout << endl;
 
-    // deallocate the dynamically allocated array
     delete[] arr;
 
-    return 0;  // indicate successful program execution
+    return 0;
 }
 
-// Function/Method Definition - START
-void bubbleSort(int arr[], int arrSize) {
-    for (int i = 0; i < arrSize - 1; i++) {
-        for (int j = 0; j < arrSize - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+void bubbleSort(int arr[], int size) {
+    bool swapped = true;
+    int j = 0;
+
+    while (swapped) {
+        swapped = false;
+        j++;
+        for (int i = 0; i < size - j; i++) {
+            if (arr[i] > arr[i + 1]) {
+                temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                swapped = true;
+                numSwaps++;
             }
+            numComparisons++;
         }
     }
+
+    cout << "Number of comparisons: " << numComparisons << endl;
+    cout << "Number of swaps: " << numSwaps << endl;
 }
-// define function/method definitions between the two markers
-// Function/Method Definition - END
